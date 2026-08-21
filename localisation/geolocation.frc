@@ -1,18 +1,20 @@
 FRC
 
+$//! verifier le chemin pour dll//$
+
 #init[[[
-{var_local|a|=dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[int;void]geo_process()]}
+{var_local|a|=dll|localisationwin32v2.dll|[[int;void]geo_process()]}
 $//{print("result " var_local|a|)}//$
 {dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[int;void]geo_view()]}
 ]]]
 
 #setup[[[
-{var_local|a|=dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[int;void]geo_process()]}
+{var_local|a|=dll|localisationwin32v2.dll|[[int;void]geo_process()]}
 {if!||var_local|a|||[[1]]
-	{var|result|="text(dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[char;void]geo_get_error()])"}
+	{var|result|="text(dll|localisationwin32v2.dll|[[char;void]geo_get_error()])"}
 
-	{var|lat|=dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[double;void]geo_get_latitude()]}
-	{var|lon|=dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[double;void]geo_get_longitude()]}
-	{var|acc|=dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[double;void]geo_get_accuracy()]}
+	{var|lat|=dll|localisationwin32v2.dll|[[double;void]geo_get_latitude()]}
+	{var|lon|=dll|localisationwin32v2.dll|[[double;void]geo_get_longitude()]}
+	{var|acc|=dll|localisationwin32v2.dll|[[double;void]geo_get_accuracy()]}
 }
 ]]]
