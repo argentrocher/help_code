@@ -1,20 +1,47 @@
 FRC
 
-$//! verifier le chemin pour dll//$
+$//
+!!! verifier le chemin pour la dll.
+Sur 0.5, les chemins de dll non spécifié à l'emplacement du fichier sont accèptés, mais pas sur les versions précédentes.
+Les versions 0.3 et précédentes ne fonctionneront pas avec ce code.
+//$
 
 #init[[[
-{var_local|a|=dll|localisationwin32v2.dll|[[int;void]geo_process()]}
-$//{print("result " var_local|a|)}//$
-{dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\LOCALISATION\localisation\localisationwin32v2.dll|[[int;void]geo_view()]}
+{if||version()||<=||0.4||
+	{var_local|a|=dll|localisationwin32v2.dll|[[int;void]geo_process()]}
+	$//{print("result " var_local|a|)}//$
+	{dll|localisationwin32v2.dll|[[int;void]geo_view()]}
+}
+{if||version()||?=||0.5||
+	{var_local|a|=dll|localisationwin32v2.dll|[(int;void)geo_process()]}
+	$//{print("result " var_local|a|)}//$
+	{dll|localisationwin32v2.dll|[(int;void)geo_view()]}
+}
 ]]]
 
 #setup[[[
+{if||version()||<=||0.4||
 {var_local|a|=dll|localisationwin32v2.dll|[[int;void]geo_process()]}
-{if!||var_local|a|||[[1]]
+{if!||var_local|a|||[[2]]
 	{var|result|="text(dll|localisationwin32v2.dll|[[char;void]geo_get_error()])"}
+	{print("text(var|result|)")}
 
 	{var|lat|=dll|localisationwin32v2.dll|[[double;void]geo_get_latitude()]}
 	{var|lon|=dll|localisationwin32v2.dll|[[double;void]geo_get_longitude()]}
 	{var|acc|=dll|localisationwin32v2.dll|[[double;void]geo_get_accuracy()]}
+	{print("latitude : "var|lat|" longitude : "var|lon|" precision : "var|acc|)}
+}
+}
+{if||version()||?=||0.5||
+{var_local|a|=dll|localisationwin32v2.dll|[(int;void)geo_process()]}
+{if!||var_local|a|||
+	{var|result|="text(dll|localisationwin32v2.dll|[(char;void)geo_get_error()])"}
+	{print("text(var|result|)")}
+else
+	{var|lat|=dll|localisationwin32v2.dll|[(double;void)geo_get_latitude()]}
+	{var|lon|=dll|localisationwin32v2.dll|[(double;void)geo_get_longitude()]}
+	{var|acc|=dll|localisationwin32v2.dll|[(double;void)geo_get_accuracy()]}
+	{print("latitude : "var|lat|" longitude : "var|lon|" precision : "var|acc|)}
+}
 }
 ]]]
