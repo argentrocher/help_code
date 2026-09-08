@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>EDT Test</title>
+</head>
+<body>
+
+<h1>Réponse EDT</h1>
+
+<pre id="result">Chargement...</pre>
+
+<script>
+
+fetch(
+    "https://little-dream-36b9.argentropcher-me.workers.dev/" +
+    "?start=2026-09-07" +
+    "&end=2026-09-12" +
+    "&group=GEII1-TDB1"
+)
+.then(async response => {
+
+    console.log("STATUS :", response.status);
+
+    if (!response.ok)
+        throw new Error("HTTP " + response.status);
+
+    console.log("AVANT JSON");
+
+    const data = await response.json();
+
+    console.log("APRES JSON");
+    console.log("DATA :", data);
+
+    document.getElementById("result").textContent =
+        JSON.stringify(data, null, 2);
+
+})
+.catch(error => {
+
+    document.getElementById("result").textContent =
+        "ERREUR : " + error;
+
+    console.error("ERREUR :", error);
+});
+
+</script>
+
+</body>
+</html>

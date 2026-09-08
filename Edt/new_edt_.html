@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emploi du temps</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            background: white;
+            color: black;
+
+            transition: background 0.2s, color 0.2s;
+        }
+
+        body.dark {
+            background: #111;
+            color: white;
+        }
+
+        #top {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            padding: 15px;
+
+            background: inherit;
+            border-bottom: 1px solid #aaa;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        #group {
+            padding: 8px 10px;
+            font-size: 16px;
+            width: 180px;
+
+            border: 1px solid #888;
+            border-radius: 5px;
+
+            background: inherit;
+            color: inherit;
+        }
+
+        button {
+            padding: 8px 14px;
+
+            font-size: 16px;
+
+            border: 1px solid #888;
+            border-radius: 5px;
+
+            background: inherit;
+            color: inherit;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ddd;
+        }
+
+        body.dark button:hover {
+            background: #333;
+        }
+
+        #date {
+            font-size: 22px;
+            font-weight: bold;
+
+            min-width: 220px;
+            text-align: center;
+        }
+
+        #status {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        #planning {
+            padding: 20px;
+        }
+
+        .day {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .event {
+            position: relative;
+
+            margin-bottom: 12px;
+            padding: 12px 15px 12px 22px;
+
+            border: 1px solid #aaa;
+            border-radius: 7px;
+
+            background: white;
+            color: black;
+
+            transition: border 0.1s, box-shadow 0.1s;
+        }
+
+        body.dark .event {
+            background: #181818;
+            color: white;
+        }
+
+        /* Barre de couleur fournie par Celcat */
+        .event::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 7px;
+
+            background: var(--event-color);
+
+            border-radius: 7px 0 0 7px;
+        }
+
+        /* Objet actuellement en cours */
+        .event.current {
+            border: 2px solid currentColor;
+            padding-left: 19px;
+
+            box-shadow: 0 0 0 1px currentColor;
+        }
+
+        .event-time {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .event-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .event-info {
+            font-size: 14px;
+            line-height: 1.5;
+            opacity: 0.85;
+        }
+
+        .event-category {
+            display: inline-block;
+
+            margin-top: 8px;
+            padding: 3px 7px;
+
+            border: 1px solid #999;
+            border-radius: 4px;
+
+            font-size: 15px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            opacity: 0.6;
+        }
+
+        .error {
+            color: #d00000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="top">
+
+    <button id="previous">←</button>
+
+    <div id="date">Chargement...</div>
+
+    <button id="next">→</button>
+
+    <input
+        id="group"
+        type="text"
+        value="GEII1-TDB1"
+        placeholder="Groupe"
+    >
+
+    <button id="reload">Charger</button>
+
+    <button id="theme">☾</button>
+
+    <div id="status"></div>
+
+</div>
+
+<div id="planning"></div>
+
+
+<script src="./script_new_edt_.js"></script>
+
+</body>
+</html>
