@@ -1,13 +1,13 @@
 FRC
 
 #init[[[
-{var|path_serveur|="C:\Users\TGAPL\Documents\Thomas 2\Html\frc_test\http_serveur_dll.dll"}
-{var_local|r|=dll|text(var|path_serveur|)|[start_http_server("8080;C:\Users\TGAPL\Documents\Thomas 2\Html\Edt\new_edt_.html")]}
+{var|path_serveur|="http_serveur_dll.dll"}
+{var_local|r|=dll|text(var|path_serveur|)|[start_http_server("8080;new_edt_.html")]}
 {if!||var_local|r|||
 	{print("erreur d'ouverture du serveur sur la page par defaut !")}
 	{exit}
 }
-{var_local|r|=dll|text(var|path_serveur|)|[configure_base_directory("text(C:\Users\TGAPL\Documents\Thomas 2\Html\Edt\)")]}
+{var_local|r|=dll|text(var|path_serveur|)|[configure_base_directory("text(.\)")]}
 {if!||var_local|r|||
 	{print("erreur de définition du répertoire par defaut pour les données webs !")}
 	{exit}
