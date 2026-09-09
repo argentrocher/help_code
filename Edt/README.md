@@ -1,0 +1,3 @@
+Ce répertoire est réservé à un site, il n'a aucun intérêt pour un utilisateur, voir les autres dossiers ...
+
+Ce répertoire est fait avec de l'ia à 95 % car il n'est pas intéressant, (ce qui n'est pas le cas du reste).
