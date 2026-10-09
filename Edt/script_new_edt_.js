@@ -415,7 +415,7 @@ function isDateLoaded(date) {
  */
 
 function render() {
-	if (currentDate.getDay() === 0 || currentDate.getDay() === 6) return;
+	if (currentDate.getDay() === 0 || currentDate.getDay() === 6) return 0;
     document.getElementById("date").textContent = formatDateFrench(currentDate);
 
     const planning = document.getElementById("planning");
@@ -597,10 +597,10 @@ document.getElementById("previous")
          */
 
 		while ((currentDate.getDay() === 0 || currentDate.getDay() === 6)) {
-			if (isDateLoaded(currentDate) /*&& !render()*/) currentDate = addDays(currentDate, -1);
+			if (isDateLoaded(currentDate) && !render()) currentDate = addDays(currentDate, -1);
 			else if (!isDateLoaded(currentDate)) {
-				//await loadWeek(currentDate);
-				if (/*!render()*/ true) currentDate = addDays(currentDate, -1);
+				await loadWeek(currentDate);
+				if (!render()) currentDate = addDays(currentDate, -1);
 				else return;
 			}
 			else return;
@@ -625,10 +625,10 @@ document.getElementById("next")
             addDays(currentDate, 1);
 			
 		while ((currentDate.getDay() === 0 || currentDate.getDay() === 6)) {
-			if (isDateLoaded(currentDate)/* && !render()*/) currentDate = addDays(currentDate, 1);
+			if (isDateLoaded(currentDate) && !render()) currentDate = addDays(currentDate, 1);
 			else if (!isDateLoaded(currentDate)) {
-				//await loadWeek(currentDate);
-				if (/*!render()*/ true) currentDate = addDays(currentDate, 1);
+				await loadWeek(currentDate);
+				if (!render()) currentDate = addDays(currentDate, 1);
 				else return;
 			}
 			else return;
