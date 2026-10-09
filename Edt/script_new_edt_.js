@@ -18,6 +18,8 @@ let events = [];
 
 let loadedGroup = "";
 
+//voir le weekend ou non
+const view_week_end = false;
 
 /*
  * ============================================
@@ -415,7 +417,6 @@ function isDateLoaded(date) {
  */
 
 function render() {
-	if (currentDate.getDay() === 0 || currentDate.getDay() === 6) return 0;
     document.getElementById("date").textContent = formatDateFrench(currentDate);
 
     const planning = document.getElementById("planning");
@@ -438,7 +439,7 @@ function render() {
             a.start - b.start
         );
 
-    if (dayEvents.length === 0) {
+    if (dayEvents.length === 0 || (!view_week_end && (currentDate.getDay() === 0 || currentDate.getDay() === 6))) {
         planning.innerHTML =
             `<div class="empty">
                 Aucun événement aujourd'hui.
