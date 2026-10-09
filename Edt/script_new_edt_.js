@@ -415,6 +415,7 @@ function isDateLoaded(date) {
  */
 
 function render() {
+	if (currentDate.getDay() === 0 || currentDate.getDay() === 6) return;
     document.getElementById("date").textContent = formatDateFrench(currentDate);
 
     const planning = document.getElementById("planning");
