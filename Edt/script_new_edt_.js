@@ -598,7 +598,7 @@ document.getElementById("previous")
 		while ((currentDate.getDay() === 0 || currentDate.getDay() === 6)) {
 			if (isDateLoaded(currentDate) /*&& !render()*/) currentDate = addDays(currentDate, -1);
 			else if (!isDateLoaded(currentDate)) {
-				await loadWeek(currentDate);
+				//await loadWeek(currentDate);
 				if (/*!render()*/ true) currentDate = addDays(currentDate, -1);
 				else return;
 			}
@@ -626,7 +626,7 @@ document.getElementById("next")
 		while ((currentDate.getDay() === 0 || currentDate.getDay() === 6)) {
 			if (isDateLoaded(currentDate)/* && !render()*/) currentDate = addDays(currentDate, 1);
 			else if (!isDateLoaded(currentDate)) {
-				await loadWeek(currentDate);
+				//await loadWeek(currentDate);
 				if (/*!render()*/ true) currentDate = addDays(currentDate, 1);
 				else return;
 			}
