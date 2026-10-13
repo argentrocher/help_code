@@ -260,11 +260,57 @@ function parseEvent(event) {
 
         site: event.sites?.join(", ") || "",
 
-        module: event.modules?.join(", ") || ""
+        module: event.modules?.join(", ") || "",
 
+		eventId: event.id || NaN
     };
 }
 
+/*
+ * ============================================
+ * Charger la ressource supplémentaire 
+ * pour l'évenement particulier Notes 
+ * renvoie NotesAdditionalData
+ * ============================================
+ */
+
+async function loadAdditionalData(id) {
+	const params = new URLSearchParams({
+        eventId: id
+    });
+	return fetch(
+        WORKER + "?" + params.toString()
+    )
+    .then(async response => {
+        //console.log("STATUS :", response.status);
+        if (!response.ok)
+            throw new Error("HTTP " + response.status);
+        return response.json();
+    })
+    .then(data => {
+        //console.log("DATA :", data);
+		//parsing pour récupérer la clé voulu (peut être en fr-FR ou en-EN)
+		let NotesAdditionalData = data?.elements?.find(element => element.label === "Notes")?.content;
+		if (!NotesAdditionalData) {
+			NotesAdditionalData = data?.elements?.find(element => element.label === "Remarques")?.content;
+		}
+		return NotesAdditionalData || NaN;
+    })
+    .catch(error => {
+        console.error("ERREUR :", error);
+		return NaN; //pas de valeur de retour
+    });
+}
+
+async function loadAllAdditionalData() {
+    for (const event of events) {
+        if (event.subject || !event.eventId)
+            continue;
+        event.additionalNotes = await loadAdditionalData(event.eventId);
+		if (event.additionalNotes)
+			event.additionalNotes = event.additionalNotes.replace(/<br\s*\/?>/gi, " ");
+    }
+}
 
 /*
  * ============================================
@@ -311,17 +357,13 @@ async function loadWeek(date) {
         WORKER + "?" + params.toString()
     )
     .then(async response => {
-
-        console.log("STATUS :", response.status);
-
+        //console.log("STATUS :", response.status);
         if (!response.ok)
             throw new Error("HTTP " + response.status);
-
         return response.json();
     })
-    .then(data => {
-
-        console.log("DATA :", data);
+    .then(async data => {
+        //console.log("DATA :", data);
 
         /*
          * Vérification du JSON
@@ -342,6 +384,7 @@ async function loadWeek(date) {
                 !isNaN(event.end.getTime())
             );
 
+		await loadAllAdditionalData(); //charge les données supplémentaire si nécessaire
 
         /*
          * La semaine est maintenant réellement chargée.
@@ -378,7 +421,6 @@ async function loadWeek(date) {
         render();
     })
     .catch(error => {
-
         console.error("ERREUR :", error);
 
         events = [];
@@ -494,7 +536,11 @@ function render() {
 
         title.className = "event-title";
 
-        title.textContent = fixEncoding(event.subject) || "Événement";
+		if (event.subject) {
+			title.textContent = fixEncoding(event.subject) || "Événement";
+		} else {
+			title.textContent = event.additionalNotes || "Événement";
+		}
 
 
         /*
