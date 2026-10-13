@@ -1,3 +1,5 @@
+//by argentropcher
+
 /*
 export default {
     async fetch(request) {
@@ -39,6 +41,40 @@ export default {
     async fetch(request) {
 
         const url = new URL(request.url);
+
+        const eventId = url.searchParams.get("eventId");
+
+        if (eventId !== null) {
+
+            const params = new URLSearchParams();
+
+            params.append("eventId", eventId);
+
+            const response = await fetch(
+                "https://edt.iut-velizy.uvsq.fr/Home/GetSideBarEvent",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+
+                    body: params.toString()
+                }
+            );
+
+            return new Response(
+                await response.text(),
+                {
+                    status: response.status,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                }
+            );
+        }
 
         const start = url.searchParams.get("start") || "2026-09-07";
         const end = url.searchParams.get("end") || "2026-09-12";
